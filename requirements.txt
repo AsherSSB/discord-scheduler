@@ -1,11 +1,19 @@
+aiohappyeyeballs==2.6.1
+aiohttp==3.13.0
+aiosignal==1.4.0
 annotated-types==0.7.0
 anyio==4.11.0
+attrs==25.4.0
 click==8.3.0
 fastapi==0.119.0
+frozenlist==1.8.0
 h11==0.16.0
 httptools==0.7.1
 idna==3.11
+multidict==6.7.0
+propcache==0.4.1
 pydantic==2.12.2
+pydantic-settings==2.11.0
 pydantic_core==2.41.4
 python-dotenv==1.1.1
 PyYAML==6.0.3
@@ -17,3 +25,4 @@ uvicorn==0.37.0
 uvloop==0.22.1
 watchfiles==1.1.1
 websockets==15.0.1
+yarl==1.22.0
