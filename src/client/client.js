@@ -1,4 +1,4 @@
-import { DiscordSDK } from "https://cdn.skypack.dev/@discord/embedded-app-sdk";
+import { DiscordSDK } from '@discord/embedded-app-sdk';
 
 
 // Will eventually store the authenticated user's access_token

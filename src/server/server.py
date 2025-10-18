@@ -55,7 +55,7 @@ async def authenticate_client(auth_code: str):
             return response_data
 
 
-app.mount("/", StaticFiles(directory=Path("../client/"), html=True), name="static")
+app.mount("/", StaticFiles(directory=Path("../client/dist"), html=True), name="static")
 
 if __name__ == "__main__":
     # set reload=False for production
