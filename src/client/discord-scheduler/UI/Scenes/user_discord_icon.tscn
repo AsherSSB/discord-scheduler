@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3bsvdeyacht3"]
+
+[ext_resource type="Texture2D" uid="uid://bew670t3gtc85" path="res://Assets/Textures/Minun_Icon.webp" id="1_5x3x7"]
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UserDiscordIcon" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_5x3x7")
+expand_mode = 1

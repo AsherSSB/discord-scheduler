@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://qqn56r58laqr"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_wvgon"]
+[ext_resource type="Script" uid="uid://cmffrs618o857" path="res://UI/Scripts/event_selected.gd" id="2_wbqwr"]
+[ext_resource type="PackedScene" uid="uid://dargcskhapilm" path="res://UI/Scenes/left_sidebar.tscn" id="3_wbqwr"]
+[ext_resource type="PackedScene" uid="uid://ckxi7f5fdwjqt" path="res://UI/Scenes/grid_pane.tscn" id="4_maolm"]
+[ext_resource type="PackedScene" uid="uid://yknx3herxw71" path="res://UI/Scenes/right_sidebar.tscn" id="5_tpgoi"]
+
+[node name="EventSelected" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wvgon")
+script = ExtResource("2_wbqwr")
+save_button_path = NodePath("SafeArea/App/ActionBar/Buttons/Save")
+edit_button_path = NodePath("SafeArea/App/ActionBar/Buttons/Edit")
+cancel_button_path = NodePath("SafeArea/App/ActionBar/Buttons/Cancel")
+status_label_path = NodePath("SafeArea/App/ActionBar/Status")
+debug_print = true
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="App" type="VBoxContainer" parent="SafeArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_wvgon")
+
+[node name="ActionBar" type="HBoxContainer" parent="SafeArea/App"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackToEvents" type="Button" parent="SafeArea/App/ActionBar"]
+layout_mode = 2
+text = "Back to Events"
+
+[node name="Status" type="Label" parent="SafeArea/App/ActionBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select your availability, then Save"
+
+[node name="Buttons" type="HBoxContainer" parent="SafeArea/App/ActionBar"]
+layout_mode = 2
+
+[node name="Edit" type="Button" parent="SafeArea/App/ActionBar/Buttons"]
+visible = false
+layout_mode = 2
+text = "Edit"
+
+[node name="Save" type="Button" parent="SafeArea/App/ActionBar/Buttons"]
+layout_mode = 2
+text = "Save"
+
+[node name="Cancel" type="Button" parent="SafeArea/App/ActionBar/Buttons"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="MainContent" type="HBoxContainer" parent="SafeArea/App"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_wvgon")
+
+[node name="LeftSidebar" parent="SafeArea/App/MainContent" instance=ExtResource("3_wbqwr")]
+layout_mode = 2
+
+[node name="GridPane" parent="SafeArea/App/MainContent" instance=ExtResource("4_maolm")]
+layout_mode = 2
+
+[node name="RightSidebar" parent="SafeArea/App/MainContent" instance=ExtResource("5_tpgoi")]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="ToastAnchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+grow_horizontal = 0
+grow_vertical = 0

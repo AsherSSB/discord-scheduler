@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://yknx3herxw71"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1"]
+[ext_resource type="Script" uid="uid://bho42e5tynlo8" path="res://UI/Scripts/right_sidebar.gd" id="2"]
+
+[node name="RightSidebar" type="Panel"]
+custom_minimum_size = Vector2(240, 0)
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1")
+script = ExtResource("2")
+
+[node name="Details" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -121.5
+offset_top = 15.095
+offset_right = 121.5
+offset_bottom = 255.095
+grow_horizontal = 2
+
+[node name="CountLabel" type="Label" parent="Details"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="Details"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Columns" type="HBoxContainer" parent="Details"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Available" type="VBoxContainer" parent="Details/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AvailableHeader" type="Label" parent="Details/Columns/Available"]
+layout_mode = 2
+text = "Available"
+horizontal_alignment = 1
+
+[node name="Names" type="VBoxContainer" parent="Details/Columns/Available"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Unavailable" type="VBoxContainer" parent="Details/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UnavailableHeader" type="Label" parent="Details/Columns/Unavailable"]
+layout_mode = 2
+text = "Unavailable"
+horizontal_alignment = 1
+
+[node name="Names" type="VBoxContainer" parent="Details/Columns/Unavailable"]
+layout_mode = 2
+size_flags_horizontal = 4
