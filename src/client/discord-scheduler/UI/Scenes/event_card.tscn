@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvhehk86ygpi5"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_eh5v4"]
+[ext_resource type="Script" uid="uid://dajxiix3uffbn" path="res://UI/Scripts/event_card.gd" id="2_72yy8"]
+
+[node name="EventCard" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 160)
+focus_mode = 2
+theme = ExtResource("1_eh5v4")
+theme_type_variation = &"Card"
+script = ExtResource("2_72yy8")
+
+[node name="CardMargin" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="CardVBox" type="VBoxContainer" parent="CardMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardTitle" type="Label" parent="CardMargin/CardVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Overwatch Scrim 1"
+
+[node name="CardMeta" type="Label" parent="CardMargin/CardVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Oct 20–24 • 30 min slots "
+
+[node name="CardButtons" type="HBoxContainer" parent="CardMargin/CardVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 2
+
+[node name="Open" type="Button" parent="CardMargin/CardVBox/CardButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open"
+
+[node name="Delete" type="Button" parent="CardMargin/CardVBox/CardButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Delete"

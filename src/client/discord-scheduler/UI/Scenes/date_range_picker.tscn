@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmv0dbljhiwpd"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_theme"]
+[ext_resource type="Script" uid="uid://irnmp1r0vnum" path="res://UI/Scripts/date_range_picker.gd" id="2_script"]
+
+[node name="DateRangePicker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_theme")
+script = ExtResource("2_script")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.5
+offset_right = 88.5
+offset_bottom = 59.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_theme")
+
+[node name="Toolbar" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PrevMonth" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "◀"
+
+[node name="MonthLabel" type="Label" parent="VBox/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="NextMonth" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "▶"
+
+[node name="Weekdays" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Grid" type="GridContainer" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 7
+
+[node name="Summary" type="Label" parent="VBox"]
+layout_mode = 2
+text = "Select a start and end date…"

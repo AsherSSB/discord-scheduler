@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj4fxrhcktpw1"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_dh8ji"]
+[ext_resource type="Script" uid="uid://ce5gqkd1i7kle" path="res://UI/Scripts/TopBar.gd" id="2_0oo05"]
+
+[node name="TopBar" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+size_flags_horizontal = 3
+theme = ExtResource("1_dh8ji")
+script = ExtResource("2_0oo05")
+
+[node name="AppTitle" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_dh8ji")
+text = "discord scheduler {username}"
+
+[node name="Spacer" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_dh8ji")
+
+[node name="Search" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme = ExtResource("1_dh8ji")
+placeholder_text = "Search your events…"
+clear_button_enabled = true
+
+[node name="SortDropdown" type="OptionButton" parent="."]
+layout_mode = 2
+tooltip_text = "Sort"
+theme = ExtResource("1_dh8ji")
+
+[node name="JoinButton" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("1_dh8ji")
+text = "Join by code"
+
+[node name="NewEventButton" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("1_dh8ji")
+text = "New event"
+
+[node name="RefreshButton" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("1_dh8ji")
+text = "Refresh"
