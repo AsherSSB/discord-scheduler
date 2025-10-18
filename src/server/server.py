@@ -37,7 +37,8 @@ async def send_client_id():
 
 
 @app.post("/api/authenticate")
-async def authenticate_client(auth_code: str):
+async def authenticate_client(code_payload: dict[str, str]):
+    auth_code = code_payload["code"]
     payload = {
         "client_id": os.environ["DISCORD_CLIENT_ID"],
         "client_secret": os.environ["DISCORD_CLIENT_SECRET"],
