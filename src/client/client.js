@@ -6,6 +6,7 @@ let auth;
 
 let discordSdk; 
 
+
 getClientId().then((client_id) => {
   console.debug(client_id)
   discordSdk = new DiscordSDK(client_id);
