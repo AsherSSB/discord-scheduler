@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://dargcskhapilm"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_3dqet"]
+
+[node name="LeftSidebar" type="Panel"]
+custom_minimum_size = Vector2(220, 0)
+size_flags_vertical = 3
+theme = ExtResource("1_3dqet")
+
+[node name="ParticipantsPane" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_3dqet")
+
+[node name="ParticipantsHeader" type="HBoxContainer" parent="ParticipantsPane"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_3dqet")
+
+[node name="ParticipantsLabel" type="Label" parent="ParticipantsPane/ParticipantsHeader"]
+layout_mode = 2
+theme = ExtResource("1_3dqet")
+text = "Participants"
+
+[node name="AddButton" type="Button" parent="ParticipantsPane/ParticipantsHeader"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_3dqet")
+text = "Add"
+
+[node name="Search" type="LineEdit" parent="ParticipantsPane"]
+layout_mode = 2
+theme = ExtResource("1_3dqet")
+placeholder_text = "Search"
+clear_button_enabled = true
+
+[node name="Scroll" type="ScrollContainer" parent="ParticipantsPane"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_3dqet")
+
+[node name="ParticipantList" type="VBoxContainer" parent="ParticipantsPane/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_3dqet")

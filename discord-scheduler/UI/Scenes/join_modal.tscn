@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfxwdvarmmb21"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_cnvil"]
+[ext_resource type="Script" uid="uid://hpk0esslobek" path="res://UI/Scripts/JoinModal.gd" id="2_pn74y"]
+
+[node name="JoinModal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_cnvil")
+script = ExtResource("2_pn74y")
+
+[node name="JoinScrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_cnvil")
+color = Color(0, 0, 0, 0.35)
+
+[node name="JoinDialog" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -100.0
+offset_right = 210.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(210, 100)
+theme = ExtResource("1_cnvil")
+
+[node name="JoinMargin" type="MarginContainer" parent="JoinDialog"]
+layout_mode = 2
+theme = ExtResource("1_cnvil")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="JoinVBox" type="VBoxContainer" parent="JoinDialog/JoinMargin"]
+layout_mode = 2
+theme = ExtResource("1_cnvil")
+
+[node name="JoinTitle" type="Label" parent="JoinDialog/JoinMargin/JoinVBox"]
+layout_mode = 2
+theme = ExtResource("1_cnvil")
+text = "Join Event by Code"
+
+[node name="JoinEdit" type="LineEdit" parent="JoinDialog/JoinMargin/JoinVBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme = ExtResource("1_cnvil")
+placeholder_text = "Paste event code…"
+clear_button_enabled = true
+
+[node name="JoinButtons" type="HBoxContainer" parent="JoinDialog/JoinMargin/JoinVBox"]
+layout_mode = 2
+theme = ExtResource("1_cnvil")
+alignment = 2
+
+[node name="JoinCancel" type="Button" parent="JoinDialog/JoinMargin/JoinVBox/JoinButtons"]
+layout_mode = 2
+theme = ExtResource("1_cnvil")
+text = "Cancel"
+
+[node name="JoinConfirm" type="Button" parent="JoinDialog/JoinMargin/JoinVBox/JoinButtons"]
+layout_mode = 2
+theme = ExtResource("1_cnvil")
+text = "Join"

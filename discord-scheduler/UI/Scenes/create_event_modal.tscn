@@ -1,0 +1,170 @@
+[gd_scene load_steps=4 format=3 uid="uid://m48b4wh3djor"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_5ltme"]
+[ext_resource type="Script" uid="uid://hbpvhbmks7fi" path="res://UI/Scripts/CreateEventModal.gd" id="2_ufisw"]
+[ext_resource type="PackedScene" uid="uid://dmv0dbljhiwpd" path="res://UI/Scenes/date_range_picker.tscn" id="3_date"]
+
+[node name="CreateEventModal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_5ltme")
+script = ExtResource("2_ufisw")
+debug_print = true
+
+[node name="Scrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_5ltme")
+color = Color(0, 0, 0, 0.35)
+
+[node name="Dialog" type="PanelContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.0
+offset_right = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5ltme")
+
+[node name="DialogMargin" type="MarginContainer" parent="Dialog"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="DialogVBox" type="VBoxContainer" parent="Dialog/DialogMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_5ltme")
+
+[node name="DialogTitle" type="Label" parent="Dialog/DialogMargin/DialogVBox"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Create New Event"
+
+[node name="FormScroll" type="ScrollContainer" parent="Dialog/DialogMargin/DialogVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_5ltme")
+follow_focus = true
+
+[node name="Form" type="VBoxContainer" parent="Dialog/DialogMargin/DialogVBox/FormScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_5ltme")
+
+[node name="NameLabel" type="Label" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Event name"
+
+[node name="NameEdit" type="LineEdit" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+placeholder_text = "e.g., Project Sync"
+clear_button_enabled = true
+
+[node name="DatesLabel" type="Label" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Dates"
+
+[node name="DateRangePicker" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form" instance=ExtResource("3_date")]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeRow" type="HBoxContainer" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_5ltme")
+
+[node name="StartTimeLabel" type="Label" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TimeRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Start"
+
+[node name="StartTime" type="OptionButton" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TimeRow"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="StartPeriod" type="OptionButton" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TimeRow"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="EndTimeLabel" type="Label" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TimeRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "End"
+
+[node name="EndTime" type="OptionButton" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TimeRow"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="EndPeriod" type="OptionButton" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TimeRow"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="SlotRow" type="HBoxContainer" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="SlotLabel" type="Label" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/SlotRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Slot size"
+
+[node name="SlotSize" type="OptionButton" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/SlotRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="TZRow" type="HBoxContainer" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="TZLabel" type="Label" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TZRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Timezone"
+
+[node name="Timezone" type="OptionButton" parent="Dialog/DialogMargin/DialogVBox/FormScroll/Form/TZRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+
+[node name="ButtonsRow" type="HBoxContainer" parent="Dialog/DialogMargin/DialogVBox"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="Dialog/DialogMargin/DialogVBox/ButtonsRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Cancel"
+
+[node name="CreateButton" type="Button" parent="Dialog/DialogMargin/DialogVBox/ButtonsRow"]
+layout_mode = 2
+theme = ExtResource("1_5ltme")
+text = "Create"

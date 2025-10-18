@@ -1,0 +1,265 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckxi7f5fdwjqt"]
+
+[ext_resource type="Script" uid="uid://dgitq3mqhrp6h" path="res://UI/Scripts/grid_pane.gd" id="2_dq1r1"]
+[ext_resource type="StyleBox" uid="uid://ce1hjfb6qbq5b" path="res://UI/Themes/panelstylebox.tres" id="style"]
+
+[node name="GridPane" type="PanelContainer"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("style")
+script = ExtResource("2_dq1r1")
+debug_print = true
+base_color = Color(0.47058824, 0.84705883, 0.36078432, 1)
+others_color = Color(0.47058824, 0.84705883, 0.36078432, 1)
+grid_line_color = Color(0, 0, 0, 0.8392157)
+outline_self_color = Color(0, 0, 0, 0.2509804)
+outline_self_width = 1.0
+
+[node name="Column" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridArea" type="Control" parent="Column"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridCanvas" type="Control" parent="Column/GridArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StickyHeaders" type="Control" parent="Column/GridArea"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Corner" type="PanelContainer" parent="Column/GridArea/StickyHeaders"]
+layout_mode = 1
+offset_right = 64.0
+offset_bottom = 28.0
+
+[node name="CornerLabel" type="Label" parent="Column/GridArea/StickyHeaders/Corner"]
+layout_mode = 2
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TopHeader" type="HBoxContainer" parent="Column/GridArea/StickyHeaders"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 64.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+
+[node name="Day1" type="PanelContainer" parent="Column/GridArea/StickyHeaders/TopHeader"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day1Label" type="Label" parent="Column/GridArea/StickyHeaders/TopHeader/Day1"]
+layout_mode = 2
+text = "Mon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day2" type="PanelContainer" parent="Column/GridArea/StickyHeaders/TopHeader"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day2Label" type="Label" parent="Column/GridArea/StickyHeaders/TopHeader/Day2"]
+layout_mode = 2
+text = "Tue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day3" type="PanelContainer" parent="Column/GridArea/StickyHeaders/TopHeader"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day3Label" type="Label" parent="Column/GridArea/StickyHeaders/TopHeader/Day3"]
+layout_mode = 2
+text = "Wed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day4" type="PanelContainer" parent="Column/GridArea/StickyHeaders/TopHeader"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day4Label" type="Label" parent="Column/GridArea/StickyHeaders/TopHeader/Day4"]
+layout_mode = 2
+text = "Thu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day5" type="PanelContainer" parent="Column/GridArea/StickyHeaders/TopHeader"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day5Label" type="Label" parent="Column/GridArea/StickyHeaders/TopHeader/Day5"]
+layout_mode = 2
+text = "Fri"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day6" type="PanelContainer" parent="Column/GridArea/StickyHeaders/TopHeader"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day6Label" type="Label" parent="Column/GridArea/StickyHeaders/TopHeader/Day6"]
+layout_mode = 2
+text = "Sat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day7" type="PanelContainer" parent="Column/GridArea/StickyHeaders/TopHeader"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day7Label" type="Label" parent="Column/GridArea/StickyHeaders/TopHeader/Day7"]
+layout_mode = 2
+text = "Sun"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftHeader" type="VBoxContainer" parent="Column/GridArea/StickyHeaders"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 28.0
+offset_right = 64.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="LegendSep" type="HSeparator" parent="Column"]
+layout_mode = 2
+
+[node name="LegendSep2" type="HSeparator" parent="Column"]
+layout_mode = 2
+
+[node name="HeatmapLegend" type="Control" parent="Column"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LegendVBox" type="VBoxContainer" parent="Column/HeatmapLegend"]
+layout_mode = 0
+size_flags_horizontal = 3
+
+[node name="BarRow" type="HBoxContainer" parent="Column/HeatmapLegend/LegendVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="L0" type="Label" parent="Column/HeatmapLegend/LegendVBox/BarRow"]
+layout_mode = 2
+text = "0"
+
+[node name="Swatches" type="HBoxContainer" parent="Column/HeatmapLegend/LegendVBox/BarRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="S1" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0)
+
+[node name="S2" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.1)
+
+[node name="S3" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.2)
+
+[node name="S4" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.35)
+
+[node name="S5" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.5)
+
+[node name="S6" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.65)
+
+[node name="S7" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.8)
+
+[node name="S8" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/BarRow/Swatches"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.85)
+
+[node name="LMax" type="Label" parent="Column/HeatmapLegend/LegendVBox/BarRow"]
+layout_mode = 2
+text = "Max (7)"
+
+[node name="KeyRow" type="HBoxContainer" parent="Column/HeatmapLegend/LegendVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="KeySelf" type="HBoxContainer" parent="Column/HeatmapLegend/LegendVBox/KeyRow"]
+layout_mode = 2
+
+[node name="SelfSwatch" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/KeyRow/KeySelf"]
+custom_minimum_size = Vector2(16, 12)
+layout_mode = 2
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.85)
+
+[node name="SelfLabel" type="Label" parent="Column/HeatmapLegend/LegendVBox/KeyRow/KeySelf"]
+layout_mode = 2
+text = "You included"
+
+[node name="KeyOthers" type="HBoxContainer" parent="Column/HeatmapLegend/LegendVBox/KeyRow"]
+layout_mode = 2
+
+[node name="OthersSwatch" type="ColorRect" parent="Column/HeatmapLegend/LegendVBox/KeyRow/KeyOthers"]
+custom_minimum_size = Vector2(16, 12)
+layout_mode = 2
+color = Color(0.47058824, 0.84705883, 0.36078432, 0.5)
+
+[node name="OthersLabel" type="Label" parent="Column/HeatmapLegend/LegendVBox/KeyRow/KeyOthers"]
+layout_mode = 2
+text = "Others only"
