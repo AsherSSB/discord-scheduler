@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://cojv0kfgljua2"]
+
+[ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1"]
+[ext_resource type="PackedScene" uid="uid://bj4fxrhcktpw1" path="res://UI/Scenes/topbar_event_select.tscn" id="2_my5k2"]
+[ext_resource type="Script" uid="uid://chfjp8ewv3u7u" path="res://UI/Scripts/EventSelect.gd" id="2_n8fvl"]
+[ext_resource type="PackedScene" uid="uid://cvhehk86ygpi5" path="res://UI/Scenes/event_card.tscn" id="2_tfhgp"]
+[ext_resource type="PackedScene" uid="uid://m48b4wh3djor" path="res://UI/Scenes/create_event_modal.tscn" id="3_g7abk"]
+[ext_resource type="PackedScene" uid="uid://cfxwdvarmmb21" path="res://UI/Scenes/join_modal.tscn" id="4_gxrck"]
+
+[node name="Event Select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1")
+script = ExtResource("2_n8fvl")
+topbar_path = NodePath("SafeArea/App/TopBar")
+join_modal_path = NodePath("SafeArea/JoinModal")
+create_modal_path = NodePath("SafeArea/CreateEventModal")
+event_grid_path = NodePath("SafeArea/App/MainContent/Scroll/EventGrid")
+empty_state_path = NodePath("SafeArea/App/MainContent/EmptyState")
+toast_anchor_path = NodePath("ToastAnchor")
+event_card_scene = ExtResource("2_tfhgp")
+debug_print = true
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="App" type="VBoxContainer" parent="SafeArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopBar" parent="SafeArea/App" instance=ExtResource("2_my5k2")]
+layout_mode = 2
+
+[node name="MainContent" type="VBoxContainer" parent="SafeArea/App"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Hint" type="Label" parent="SafeArea/App/MainContent"]
+layout_mode = 2
+text = "Select an event to continue, or create a new one."
+
+[node name="Scroll" type="ScrollContainer" parent="SafeArea/App/MainContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="EventGrid" type="HFlowContainer" parent="SafeArea/App/MainContent/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EmptyState" type="VBoxContainer" parent="SafeArea/App/MainContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="EmptyIcon" type="Label" parent="SafeArea/App/MainContent/EmptyState"]
+layout_mode = 2
+text = "🗓️"
+horizontal_alignment = 1
+
+[node name="EmptyText" type="Label" parent="SafeArea/App/MainContent/EmptyState"]
+layout_mode = 2
+text = "No events yet. Create your first event to get started."
+horizontal_alignment = 1
+
+[node name="CreateEventModal" parent="SafeArea" instance=ExtResource("3_g7abk")]
+visible = false
+layout_mode = 2
+
+[node name="JoinModal" parent="SafeArea" instance=ExtResource("4_gxrck")]
+visible = false
+layout_mode = 2
+
+[node name="ToastAnchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1.5
+offset_top = -73.0
+offset_right = 1.5
+offset_bottom = -9.0
+grow_vertical = 0
