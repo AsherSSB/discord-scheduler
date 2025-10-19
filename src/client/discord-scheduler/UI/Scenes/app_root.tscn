@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://diuskgg3pplg0"]
+[gd_scene load_steps=8 format=3 uid="uid://diuskgg3pplg0"]
 
 [ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1"]
 [ext_resource type="Script" uid="uid://ce287jvd726eb" path="res://UI/Scripts/AppRoot.gd" id="2_btpwb"]
 [ext_resource type="PackedScene" uid="uid://cojv0kfgljua2" path="res://UI/Scenes/event_select.tscn" id="2_pgur1"]
 [ext_resource type="PackedScene" uid="uid://qqn56r58laqr" path="res://UI/Scenes/event_selected.tscn" id="3_btpwb"]
+[ext_resource type="PackedScene" uid="uid://ufi505tiueer" path="res://UI/Scenes/loading.tscn" id="3_i2gic"]
+[ext_resource type="Script" uid="uid://c5qej0w71uplu" path="res://UI/Scripts/WebBridge.gd" id="5_xgwyi"]
+[ext_resource type="Script" uid="uid://c4s8k0p14myps" path="res://UI/Scripts/label.gd" id="6_g5pxh"]
 
 [node name="AppRoot" type="Control"]
 layout_mode = 3
@@ -18,7 +21,8 @@ theme = ExtResource("1")
 script = ExtResource("2_btpwb")
 event_select_path = NodePath("Panel/SafeEdge/EventSelect")
 event_selected_path = NodePath("Panel/SafeEdge/EventSelected")
-debug_cycle_enabled = false
+loading_scene = ExtResource("3_i2gic")
+auth_label_path = NodePath("AuthLabel")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -40,6 +44,10 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="LoadingOverlay" parent="Panel/SafeEdge" instance=ExtResource("3_i2gic")]
+visible = false
+layout_mode = 2
+
 [node name="EventSelect" parent="Panel/SafeEdge" instance=ExtResource("2_pgur1")]
 visible = false
 layout_mode = 2
@@ -47,3 +55,23 @@ layout_mode = 2
 [node name="EventSelected" parent="Panel/SafeEdge" instance=ExtResource("3_btpwb")]
 visible = false
 layout_mode = 2
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("5_xgwyi")
+
+[node name="AuthLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 52
+text = "test"
+script = ExtResource("6_g5pxh")

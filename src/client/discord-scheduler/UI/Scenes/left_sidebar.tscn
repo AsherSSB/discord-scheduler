@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dargcskhapilm"]
+[gd_scene load_steps=3 format=3 uid="uid://dargcskhapilm"]
 
 [ext_resource type="Theme" uid="uid://xvo1sq6mt7ca" path="res://UI/Themes/modern_classic_blue.tres" id="1_3dqet"]
+[ext_resource type="Script" uid="uid://wwmi0pvn152c" path="res://UI/Scripts/left_sidebar.gd" id="2_8e10d"]
 
 [node name="LeftSidebar" type="Panel"]
 custom_minimum_size = Vector2(220, 0)
 size_flags_vertical = 3
 theme = ExtResource("1_3dqet")
+script = ExtResource("2_8e10d")
 
 [node name="ParticipantsPane" type="VBoxContainer" parent="."]
 layout_mode = 0

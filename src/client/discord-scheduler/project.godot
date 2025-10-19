@@ -21,6 +21,7 @@ Router="*res://Core/Router.gd"
 Api="*res://Core/Net/Api.gd"
 Session="*res://Core/Session.gd"
 Availability="*res://Core/Services/Availability.gd"
+DiscordSession="*res://Core/Services/discord_session.gd"
 
 [rendering]
 

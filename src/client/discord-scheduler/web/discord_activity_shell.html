@@ -1,0 +1,235 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self' https: blob: data:;
+                   script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval';
+                   connect-src 'self' https: wss:;
+                   img-src 'self' https: data: blob:;
+                   style-src 'self' https: 'unsafe-inline';
+                   worker-src 'self' blob:">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>$GODOT_PROJECT_NAME</title>
+    <link rel="icon" href="data:,">
+    <link rel="preload" as="image" href="./Assets/mascotimproved.png">
+    <style>
+      html,body{height:100%;margin:0;background:#0b0b0b}
+      #wrap{position:fixed;inset:0}
+      #err{position:fixed;inset:12px;white-space:pre-wrap;color:#ff6b6b;font:13px/1.4 system-ui;display:none;z-index:2000}
+      canvas{width:100%;height:100%;display:block}
+
+      /* Preloader overlay */
+      #preload{position:fixed;inset:0;display:grid;place-items:center;background:#0b0b0b;z-index:1500}
+      #pl-box{display:flex;flex-direction:column;align-items:center;gap:14px}
+      #pl-logo{width:clamp(120px,30vmin,280px);height:auto;opacity:0;transition:opacity .18s ease-out}
+      #pl-text{
+        font:700 clamp(14px,2.6vmin,18px)/1.1 system-ui,Segoe UI,Roboto,Inter,sans-serif;
+        letter-spacing:.12em;text-transform:uppercase;color:#c8d6e5;
+        opacity:0;transition:opacity .18s ease-out;
+        animation:pulseText 1.2s ease-in-out infinite;
+        will-change:opacity;
+      }
+      #preload.show #pl-logo, #preload.show #pl-text{opacity:1}
+      @keyframes pulseText{0%{opacity:.55}50%{opacity:1}100%{opacity:.55}}
+
+      .fade-out{animation:fadeout .28s ease forwards}
+      @keyframes fadeout{to{opacity:0;visibility:hidden}}
+
+      /* Respect reduced motion UNLESS we opt-in with .force-motion on <html> */
+      @media (prefers-reduced-motion: reduce){
+        html:not(.force-motion) #pl-text{animation:none}
+        html:not(.force-motion) .fade-out{animation:none;opacity:0;visibility:hidden}
+      }
+    </style>
+  </head>
+  <body>
+    <script>document.documentElement.classList.add('force-motion');</script>
+
+    <!-- Minimal preloader: static mascot + pulsing label -->
+    <div id="preload">
+      <div id="pl-box">
+        <img id="pl-logo" src="./Assets/mascotimproved.png" alt="Loading…">
+        <div id="pl-text">Final Build</div>
+      </div>
+    </div>
+
+    <!-- Godot canvas -->
+    <div id="wrap">
+      <canvas id="godot-canvas"></canvas>
+    </div>
+
+    <!-- Error box -->
+    <div id="err"></div>
+
+    <!-- Preloader controller: JS fallback pulse + one full pulse + min 2s display -->
+    <script>
+      (function(){
+        const root = document.getElementById('preload');
+        const text = document.getElementById('pl-text');
+
+        const PULSE_MS   = 1200;  // must match CSS pulse duration
+        const MIN_SHOW_MS= 2000;  // ensure splash shows at least this long
+        const FADE_OUT_MS= 280;
+
+        let finishRequested = false;
+        let finished = false;
+        let firstCycleDone = false;
+        let cssPulseStarted = false;
+        let jsPulseTimer = null;
+        const startedAt = performance.now();
+
+        // Start visible
+        root.classList.add('show');
+
+        // Detect CSS animation actually running
+        text.addEventListener('animationstart', () => { cssPulseStarted = true; }, { passive:true });
+        text.addEventListener('animationiteration', () => {
+          firstCycleDone = true;
+          if (finishRequested) scheduleFinish();
+        }, { passive:true });
+
+        // Fallback: if CSS animation didn't start, run JS pulse
+        setTimeout(() => {
+          if (!cssPulseStarted && !jsPulseTimer){
+            let hi = false;
+            text.style.transition = 'opacity 0.6s ease-in-out';
+            jsPulseTimer = setInterval(() => {
+              hi = !hi;
+              text.style.opacity = hi ? '1' : '.55';
+            }, PULSE_MS/2);
+            // Mark one full cycle complete after one period
+            setTimeout(() => { firstCycleDone = true; if (finishRequested) scheduleFinish(); }, PULSE_MS);
+          } else {
+            // Even with CSS, ensure we don't miss the first cycle
+            setTimeout(() => { firstCycleDone = true; if (finishRequested) scheduleFinish(); }, PULSE_MS);
+          }
+        }, 150);
+
+        function tryFinish(){
+          if (finished) return;
+          const elapsed = performance.now() - startedAt;
+          if (!firstCycleDone) return;
+          if (elapsed < MIN_SHOW_MS) return;
+          finished = true;
+          if (jsPulseTimer){ clearInterval(jsPulseTimer); jsPulseTimer = null; }
+          root.classList.add('fade-out');
+          setTimeout(() => { root.style.display = 'none'; }, FADE_OUT_MS);
+        }
+
+        function scheduleFinish(){
+          if (finished) return;
+          const elapsed = performance.now() - startedAt;
+          const remainingPulse = firstCycleDone ? 0 : Math.max(0, PULSE_MS - elapsed);
+          const remainingMin   = Math.max(0, MIN_SHOW_MS - elapsed);
+          const wait = Math.max(remainingPulse, remainingMin);
+          if (wait <= 0) {
+            tryFinish();
+          } else {
+            setTimeout(tryFinish, wait);
+          }
+        }
+
+        // Godot calls this when truly ready
+        window.finishPreloader = function(){
+          if (finished) return;
+          finishRequested = true;
+          scheduleFinish();
+        };
+      })();
+    </script>
+
+    <!-- Godot loader -->
+    <script src="$GODOT_URL"></script>
+    <script>
+      const errBox = document.getElementById('err');
+      const showEngineErr = (e) => {
+        errBox.style.display = 'block';
+        errBox.textContent = 'Godot startup error:\n' + (e?.stack || e);
+        console.error(e);
+      };
+
+      const engine = new Engine($GODOT_CONFIG);
+      const canvas = document.getElementById('godot-canvas');
+
+      (engine.startGame?.() || engine.startGame)({ canvas })
+        .then(() => console.log('Godot started'))
+        .catch(showEngineErr);
+
+      window.addEventListener('error', ev => showEngineErr(ev.error || ev.message));
+      window.addEventListener('unhandledrejection', ev => showEngineErr(ev.reason || 'unhandled rejection'));
+    </script>
+
+    <!-- Discord auth (unchanged): forwards token; Godot decides when to end preloader -->
+    <script type="module">
+      import { DiscordSDK } from "./vendor/discord-sdk/index.mjs";
+
+      const errBox = document.getElementById('err');
+      const authErr = (tag, e) => {
+        errBox.style.display = 'block';
+        let msg=''; try{ msg = e?.message || JSON.stringify(e,null,2); }catch{ msg=String(e); }
+        errBox.textContent = `Discord auth error (${tag}):\n` + msg;
+        console.error(tag, e);
+      };
+
+      (async () => {
+        const infoResp = await fetch("/api/client-id", { cache: "no-store", credentials: "include" });
+        const info = await infoResp.json();
+        if (!info.client_id) throw new Error("Missing client_id from /api/client-id");
+        const client_id = info.client_id;
+        const redirect_uri = info.redirect_uri || "";
+
+        const sdk = new DiscordSDK(client_id);
+        await sdk.ready();
+
+        let code, usedRedirect = false;
+        try {
+          ({ code } = await sdk.commands.authorize({
+            client_id, response_type: "code", state: "", prompt: "none",
+            scope: ["identify","guilds","applications.commands"]
+          }));
+        } catch (e) {
+          const m = (e && (e.message || e.toString())) || "";
+          if (m.includes('Missing "redirect_uri"')) {
+            if (!redirect_uri) throw new Error("No redirect_uri configured for fallback.");
+            ({ code } = await sdk.commands.authorize({
+              client_id, response_type: "code", state: "", prompt: "none",
+              scope: ["identify","guilds","applications.commands"], redirect_uri
+            }));
+            usedRedirect = true;
+          } else {
+            return authErr("authorize()", e);
+          }
+        }
+
+        let access_token;
+        try {
+          const r = await fetch("/api/authenticate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            cache: "no-store",
+            body: JSON.stringify({ code, use_redirect_uri: usedRedirect })
+          });
+          const data = await r.json();
+          if (!r.ok) return authErr("token exchange", data);
+          access_token = data.access_token;
+        } catch (e) {
+          return authErr("fetch(/api/authenticate)", e);
+        }
+
+        try {
+          await sdk.commands.authenticate({ access_token });
+          console.log("Discord SDK authenticated in client.");
+        } catch (e) {
+          return authErr("sdk.authenticate()", e);
+        }
+
+        // Forward token; Godot will call window.finishPreloader() when ready
+        window.__discordAccessToken = access_token;
+        window.dispatchEvent(new CustomEvent("discord-token", { detail: access_token }));
+        if (window.godotReceiveToken) window.godotReceiveToken(access_token);
+      })().catch(e => authErr("top-level", e));
+    </script>
+  </body>
+</html>
