@@ -68,7 +68,6 @@ class Database:
     def create_user(self, user_id: int):
         with Session(self._engine) as session:
             session.add(User(id=user_id))
-
             session.commit()
 
     def create_poll(
@@ -81,19 +80,22 @@ class Database:
         end_date: date,
     ):
         with Session(self._engine) as session:
-            session.add(
-                Poll(
-                    name=name,
-                    creator_id=creator_id,
-                    creation_time=datetime.now(),
-                    start_time=start_time,
-                    end_time=end_time,
-                    start_date=start_date,
-                    end_date=end_date,
-                )
+            new_poll = Poll(
+                name=name,
+                creator_id=creator_id,
+                creation_time=datetime.now(),
+                start_time=start_time,
+                end_time=end_time,
+                start_date=start_date,
+                end_date=end_date,
             )
+            session.add(new_poll)
 
             session.commit()
+
+            session.refresh(new_poll)  # make sure new_poll id is initialized
+
+            return new_poll.id
 
     def create_user_poll_connection(self, user_id: int, poll_id: UUID):
         with Session(self._engine) as session:
@@ -101,9 +103,11 @@ class Database:
 
             session.commit()
 
-    def create_user_poll_available_times(
+    def set_user_poll_available_times(
         self, poll_id: UUID, user_id: int, available_times: list[datetime]
     ):
+        # delete previously saved times to replace with new times
+        _ = self.delete_user_poll_available_times(poll_id, user_id)
         with Session(self._engine) as session:
             link_query = (
                 select(UserPollLink)
@@ -122,3 +126,37 @@ class Database:
                 session.add(AvailableTimes(link_id=link.id, time_available=new_time))
 
             session.commit()
+
+    def delete_user_poll_available_times(self, poll_id: UUID, user_id: int):
+        with Session(self._engine) as session:
+            link_query = (
+                select(UserPollLink)
+                .where(UserPollLink.user_id == user_id)
+                .where(UserPollLink.poll_id == poll_id)
+                .limit(1)
+            )
+
+            result = session.exec(link_query)
+            link = result.first()
+
+            if not link:
+                return False
+
+            times_query = select(AvailableTimes).where(AvailableTimes.link == link)
+
+            available_times = session.exec(times_query)
+            for available_time in available_times:
+                session.delete(available_time)
+
+            session.commit()
+            return True
+
+    def delete_poll(self, poll_id: UUID):
+        with Session(self._engine) as session:
+            poll = self.get_poll(poll_id)
+            session.delete(poll)
+            session.commit()
+
+    def get_poll(self, poll_id: UUID):
+        with Session(self._engine) as session:
+            return session.exec(select(Poll).where(Poll.id == poll_id).limit(1)).first()
