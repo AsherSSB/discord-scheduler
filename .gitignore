@@ -240,3 +240,5 @@ __marimo__/
 
 # Auto .env
 .direnv
+
+*bin/*
