@@ -10,12 +10,12 @@ from dotenv import load_dotenv
 from typing import cast
 from pathlib import Path
 
+_ = load_dotenv()
+
 DISCORD_TOKEN_URL = "https://discord.com/api/oauth2/token"
 CLIENT_ID = os.environ.get("DISCORD_CLIENT_ID", "").strip()
 CLIENT_SECRET = os.environ.get("DISCORD_CLIENT_SECRET", "").strip()
 REDIRECT_URI = os.environ.get("DISCORD_REDIRECT_URI", "")
-
-_ = load_dotenv()
 
 
 @asynccontextmanager
