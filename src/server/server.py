@@ -70,7 +70,7 @@ async def authenticate_client(
 
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     http_client = _get_http_client()
-    resp = await http_client.get(DISCORD_TOKEN_URL, headers=headers)
+    resp = await http_client.post(DISCORD_TOKEN_URL, data=payload, headers=headers)
     response.status_code = resp.status_code
     response_data = cast(dict[str, str], resp.json)
     return response_data
