@@ -72,8 +72,7 @@ async def authenticate_client(
     http_client = _get_http_client()
     resp = await http_client.post(DISCORD_TOKEN_URL, data=payload, headers=headers)
     response.status_code = resp.status_code
-    response_data = cast(dict[str, str], resp.json)
-    return response_data
+    return resp.json()
 
 
 def _bearer_from(
